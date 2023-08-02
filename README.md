@@ -30,10 +30,10 @@ The Math Whiz is a menu-driven Python application designed to help students enha
 ## Usage
 
 1. Open a terminal or command prompt and navigate to the project directory.
-2. Run the `the-math_whiz.py` script using Python:
+2. Run the `the-math-whiz.py` script using Python:
 
 ```bash
-python3 the-math_whiz.py
+python3 the-math-whiz.py
 ```
 
 3. Follow the on-screen instructions to interact with the application.
@@ -71,4 +71,4 @@ Contributions to this project are welcome. If you find any issues or have sugges
 
 ---
 
-**Note**: This README.md file provides a brief overview of The Math Whiz application. For more detailed information on the code and its functionalities, please refer to the comments and documentation provided in the script (`the-math_whiz.py`).
+**Note**: This README.md file provides a brief overview of The Math Whiz application. For more detailed information on the code and its functionalities, please refer to the comments and documentation provided in the script (`the-math-whiz.py`).
