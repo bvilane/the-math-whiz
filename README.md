@@ -1,5 +1,3 @@
-Sure! Below is the README.md file for The Math Whiz script:
-
 # The Math Whiz - Python Math Learning Application
 
 ## Description
