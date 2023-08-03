@@ -11,7 +11,10 @@ class MathWhiz:
 
     def display_welcome_page(self):
         """Display the welcome page."""
-        print("Welcome to The Math Whiz!")
+        title = "** Welcome to The Math Quiz **"
+        print("*" * len(title))
+        print(title)
+        print("*" * len(title))
 
     def get_user_name(self):
         """Prompt the user to input their name and display a welcome message."""
