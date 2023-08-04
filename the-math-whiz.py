@@ -15,6 +15,13 @@ class MathWhiz:
             'Advanced': ['Algebraic Problem Solving', 'Equations', 'Inequalities', 'Simplification', 'Factoring']
         }
 
+    def display_intro(self):
+        title = "** The Math Whiz **"
+        print("*" * len(title))
+        print(title)
+        print("*" * len(title))
+
+
     def welcome_user(self):
         # Ask for the user's name and provide instructions for the game.
         self.name = input("Enter your name: ")
@@ -104,6 +111,7 @@ class MathWhiz:
 
     def run(self):
         # The main game loop.
+        self.display_intro()
         self.welcome_user()
         level = self.get_user_proficiency_level()
         while True:
