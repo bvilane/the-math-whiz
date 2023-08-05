@@ -121,33 +121,3 @@ if __name__ == "__main__":
     math_whiz = MathWhiz()
     math_whiz.run()
 
-import random
-
-def generate_question():
-  """Generates an algebra maths question."""
-  # Choose two random numbers.
-  num1 = random.randint(1, 100)
-  num2 = random.randint(1, 100)
-
-  # Choose an operation.
-  operation = random.choice(["+", "-", "*", "/"])
-
-  # Create the question.
-  question = "What is the {} of {} and {}?".format(operation, num1, num2)
-
-  # Create the answer.
-  if operation == "+":
-    answer = num1 + num2
-  elif operation == "-":
-    answer = num1 - num2
-  elif operation == "*":
-    answer = num1 * num2
-  else:
-    answer = num1 / num2
-
-  return question, answer
-
-if __name__ == "__main__":
-  question, answer = generate_question()
-  print(question)
-  print(answer)
