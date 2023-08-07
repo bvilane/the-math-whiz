@@ -62,7 +62,7 @@ python3 the-math-whiz.py
 - Equations
 - Inequalities
 - Simplification
-- 
+- Factoring
 
 ## Contributing
 
