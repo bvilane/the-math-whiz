@@ -3,24 +3,15 @@ import random
 class MathWhiz:
     def __init__(self):
         # Initialize attributes for the user's name, proficiency levels, and counters for questions asked and correct answers.
-        self.user_name = ""
         self.proficiency_levels = ['Beginner', 'Intermediate', 'Advanced']
         self.questions_asked = 0
         self.questions_correct = 0
-
-        # Define the games for each proficiency level.
-        self.games = {
-            'Beginner': ['Number Operations (Arithmetic)', 'Addition', 'Subtraction', 'Multiplication', 'Division'],
-            'Intermediate': ['Square Root of Numbers', 'Cubic Root of Numbers', 'Fractions', 'Probabilities', 'Decimals'],
-            'Advanced': ['Algebraic Problem Solving', 'Equations', 'Inequalities', 'Simplification', 'Factoring']
-        }
 
     def display_intro(self):
         title = "** The Math Whiz **"
         print("*" * len(title))
         print(title)
         print("*" * len(title))
-
 
     def welcome_user(self):
         # Ask for the user's name and provide instructions for the game.
@@ -44,12 +35,8 @@ class MathWhiz:
 
         proficiency_choice = int(choice)
         selected_level = self.proficiency_levels[proficiency_choice - 1]
-        print(f'You selected "{selected_level}" proficiency level. Here are the available games:')
+        print(f'You selected "{selected_level}" proficiency level. Here are the available questions:')
         
-        # Display the games available for the selected proficiency level.
-        for i, game in enumerate(self.games[selected_level], 1):
-            print(f"{i}. {game}")
-
         return selected_level
 
     def generate_question(self, level):
@@ -79,12 +66,12 @@ class MathWhiz:
         answers = [correct_answer] + incorrect_answers
         random.shuffle(answers)
 
-        return num1, operation, correct_answer, answers
+        return num1, operation, num2, correct_answer, answers
 
     def ask_question(self, level):
         # Generate a question and ask it to the user.
-        num1, operation, correct_answer, answers = self.generate_question(level)
-        print(f"Problem: {num1} {operation} = ?")
+        num1, operation, num2, correct_answer, answers = self.generate_question(level)
+        print(f"Problem: {num1} {operation} {num2} = ?")
         options = ['A', 'B', 'C', 'D']
         for i in range(4):
             print(f"{options[i]}. {answers[i]}")
@@ -98,9 +85,9 @@ class MathWhiz:
         # Provide feedback based on whether the user's answer was correct.
         if user_answer.upper() == correct_option:
             self.questions_correct += 1
-            print(f"Correct answer, {self.user_name}. Keep it up!")
+            print(f"Correct answer, {self.name}. Keep it up!")
         else:
-            print(f"Sorry, {self.user_name}. The correct answer was {correct_option}. Try again next time.")
+            print(f"Sorry, {self.name}. The correct answer was {correct_option}. Try again next time.")
 
         # Increment the count of questions asked.
         self.questions_asked += 1
