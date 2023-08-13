@@ -1,29 +1,36 @@
+import random
+import time
+import math
+
+
 class MathWhiz:
     def __init__(self):
-        """Initialize MathWhiz class with user_name and proficiency_levels attributes."""
-        self.user_name = ""
+        # Initialize attributes for the user's name, proficiency levels, and counters for questions asked and correct answers.
         self.proficiency_levels = ['Beginner', 'Intermediate', 'Advanced']
-        self.games = {
-            'Beginner': ['Number Operations (Arithmetic)', 'Addition', 'Subtraction', 'Multiplication', 'Division'],
-            'Intermediate': ['Square Root of Numbers', 'Cubic Root of Numbers', 'Fractions', 'Probabilities', 'Decimals'],
-            'Advanced': ['Algebraic Problem Solving', 'Equations', 'Inequalities', 'Simplification', 'Factoring']
-        }
+        self.questions_asked = 0
+        self.questions_correct = 0
 
-    def display_welcome_page(self):
-        """Display the welcome page."""
-        print("Welcome to The Math Whiz!")
+    def display_intro(self):
+        title = "** The Math Whiz **"
+        print("*" * len(title))
+        print(title)
+        print("*" * len(title))
 
-    def get_user_name(self):
-        """Prompt the user to input their name and display a welcome message."""
-        self.user_name = input("Enter your name: ")
-        print(f'Fantastic {self.user_name}! Learning is so much fun!')
+    def welcome_user(self):
+        # Ask for the user's name and provide instructions for the game.
+        self.name = input("Enter your name: ")
+        print(f"Hello {self.name}. Welcome to Math Whiz. Let's help you become a Math Whiz")
+        print("Instructions: I will ask you a math question with four possible answers.")
+        print("Enter the letter of your answer. You can quit at any time by typing 'quit'.")
+        input("Press enter when you're ready to start.")
 
     def get_user_proficiency_level(self):
-        """Prompt the user to select a proficiency level and display available games."""
+        # Ask the user to select a proficiency level and display available games for that level.
         print("What proficiency level would you like to learn today?")
         for i, level in enumerate(self.proficiency_levels, 1):
             print(f"{i}. {level}")
 
+        # Validate user's choice.
         choice = input("Enter the number of your proficiency level choice: ")
         while not choice.isdigit() or int(choice) not in range(1, len(self.proficiency_levels) + 1):
             print("Invalid choice. Please enter a valid number.")
@@ -31,21 +38,149 @@ class MathWhiz:
 
         proficiency_choice = int(choice)
         selected_level = self.proficiency_levels[proficiency_choice - 1]
-        print(f'You selected "{selected_level}" proficiency level. Here are the available games:')
-        for i, game in enumerate(self.games[selected_level], 1):
-            print(f"{i}. {game}")
+        print(f'You selected "{selected_level}" proficiency level. Here are the available questions:')
+
+        return selected_level
+
+    def generate_question(self, level):
+        """Generate a random math question based on the user's selected proficiency level."""
+        if level == 'Beginner':
+            return self.generate_beginner_question()
+        elif level == 'Intermediate':
+            return self.generate_intermediate_question()
+        else:  # Advanced
+            return self.generate_advanced_question()
+
+    def generate_beginner_question(self):
+        """Generate a random addition, subtraction, multiplication, or division question for the Beginner level."""
+        num1 = random.randint(1, 10)
+        num2 = random.randint(1, 10)
+        operation = random.choice(['+', '-', '*', '/'])
+
+        if operation == '+':
+            correct_answer = num1 + num2
+        elif operation == '-':
+            correct_answer = num1 - num2
+        elif operation == '*':
+            correct_answer = num1 * num2
+        else:  # Division
+            correct_answer = num1 // num2
+
+        # Generate three incorrect answers.
+        incorrect_answers = [correct_answer + random.randint(1, 5) for _ in range(3)]
+
+        # Combine correct and incorrect answers and shuffle them.
+        answers = [correct_answer] + incorrect_answers
+        random.shuffle(answers)
+
+        return num1, operation, num2, correct_answer, answers
+
+    def generate_intermediate_question(self):
+        """Generate a random addition, subtraction, multiplication, or division question for the Intermediate level."""
+        num1 = random.randint(1, 20)
+        num2 = random.randint(1, 20)
+        operation = random.choice(['+', '-', '*', '/'])
+
+        if operation == '+':
+            correct_answer = num1 + num2
+        elif operation == '-':
+            correct_answer = num1 - num2
+        elif operation == '*':
+            correct_answer = num1 * num2
+        else:  # Division
+            correct_answer = num1 // num2
+
+        # Generate three incorrect answers.
+        incorrect_answers = [correct_answer + random.randint(1, 10) for _ in range(3)]
+
+        # Combine correct and incorrect answers and shuffle them.
+        answers = [correct_answer] + incorrect_answers
+        random.shuffle(answers)
+
+        return num1, operation, num2, correct_answer, answers
+
+    def generate_advanced_question(self):
+        """Generate a random question for the Advanced level (Algebraic Problem Solving, Equations, Inequalities, Simplification, Factoring)."""
+        num1 = random.randint(1, 20)
+        operation = random.choice(['+', '-', '*', '/'])
+
+        if operation == '+':
+            num2 = random.randint(1, 20)
+            correct_answer = num1 + num2
+        elif operation == '-':
+            num2 = random.randint(1, 20)
+            correct_answer = num1 - num2
+        elif operation == '*':
+            num2 = random.randint(1, 10)
+            correct_answer = num1 * num2
+        else:  # Division
+            num2 = random.randint(1, 10)
+            correct_answer = num1 // num2
+
+        # Generate three incorrect answers.
+        incorrect_answers = [correct_answer + random.randint(1, 10) for _ in range(3)]
+
+        # Combine correct and incorrect answers and shuffle them.
+        answers = [correct_answer] + incorrect_answers
+        random.shuffle(answers)
+
+        return num1, operation, num2, correct_answer, answers
+
+    def ask_question(self, level):
+        # Generate a question and ask it to the user.
+        num1, operation, num2, correct_answer, answers = self.generate_question(level)
+        print(f"Problem: {num1} {operation} {num2} = ?")
+        options = ['A', 'B', 'C', 'D']
+        for i in range(4):
+            print(f"{options[i]}. {answers[i]}")
+
+        if level == 'Intermediate' or level == 'Advanced':
+            time_limit = 15 if level == 'Intermediate' else 10
+            start_time = time.time()
+
+        # Get the user's answer and validate it.
+        user_answer = input("Enter the letter of your answer: ")
+        if user_answer.lower() == 'quit':
+            return 'quit'
+        correct_option = options[answers.index(correct_answer)]
+
+        # Provide feedback based on whether the user's answer was correct.
+        if user_answer.upper() == correct_option:
+            self.questions_correct += 1
+            print(f"Correct answer, {self.name}. Keep it up!")
+        else:
+            print(f"Sorry, {self.name}. The correct answer was {correct_option}. Try again next time.")
+
+        # Increment the count of questions asked.
+        self.questions_asked += 1
+
+        if level == 'Intermediate' or level == 'Advanced':
+            end_time = time.time()
+            elapsed_time = end_time - start_time
+            if elapsed_time > time_limit:
+                print("Time's up! You took too long to answer this question.")
+
+    def report(self):
+        # Report the user's score.
+        print(f"You answered {self.questions_correct} out of {self.questions_asked} questions correctly.")
+
+    def run(self):
+        # The main game loop.
+        self.display_intro()
+        self.welcome_user()
+        level = self.get_user_proficiency_level()
+        while True:
+            if self.ask_question(level) == 'quit':
+                break
+            if self.questions_asked % 10 == 0:
+                self.report()
+                continue_game = input("Do you want to continue? (yes/no): ")
+                if continue_game.lower() != 'yes':
+                    print("Thank you for playing Math Whiz. Goodbye!")
+                    break
 
 
 if __name__ == "__main__":
-    # Create an instance of MathWhiz class
+    # Start the game if the script is run directly.
     math_whiz = MathWhiz()
-
-    # Display the welcome page
-    math_whiz.display_welcome_page()
-
-    # Prompt the user to input their name
-    math_whiz.get_user_name()
-
-    # Prompt the user to select a proficiency level and display available games
-    math_whiz.get_user_proficiency_level()
-
+    math_whiz.run()
