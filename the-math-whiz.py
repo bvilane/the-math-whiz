@@ -50,7 +50,7 @@ class MathWhiz:
         """
         Welcome the user and provide game instructions.
         """
-        self.name = input("Enter your name: ")
+        self.name = input("Please enter your name: ")
         print(f"Hello {self.name}. Welcome to Math Whiz. Let's help you become a Math Whiz")
         print("Instructions: I will ask you a math question with four possible answers.")
         print("Enter the letter of your answer. You can quit at any time by typing 'quit'.")
@@ -74,7 +74,7 @@ class MathWhiz:
 
         proficiency_choice = int(choice)
         selected_level = self.proficiency_levels[proficiency_choice - 1]
-        print(f'You selected "{selected_level}" proficiency level. Here are the available questions:')
+        print(f'You selected "{selected_level}" proficiency level. Here are the questions to get you started:')
 
         return selected_level
 
@@ -127,7 +127,7 @@ class MathWhiz:
     @staticmethod
     def generate_intermediate_question():
         """
-        Generate an intermediate-level math question.
+        Generate an intermediate-level math questions.
 
         Returns:
             tuple: A tuple containing num1, operation, num2, correct_answer, and shuffled answers.
@@ -155,7 +155,7 @@ class MathWhiz:
     @staticmethod
     def generate_advanced_question():
         """
-        Generate an advanced-level math question.
+        Generate an advanced-level math questions.
 
         Returns:
             tuple: A tuple containing num1, operation, num2, correct_answer, and shuffled answers.
