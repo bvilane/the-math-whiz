@@ -51,7 +51,7 @@ class MathWhiz:
         Welcome the user and provide game instructions.
         """
         self.name = input("Please enter your name: ")
-        print(f"Hello {self.name}. Welcome to Math Whiz. Let's help you become a Math Whiz")
+        print(f"Hello {self.name}. Welcome to Math Whiz. Our goal is to help you become a Math Whiz")
         print("Instructions: I will ask you a math question with four possible answers.")
         print("Enter the letter of your answer. You can quit at any time by typing 'quit'.")
         input("Press enter when you're ready to start.")
@@ -63,7 +63,7 @@ class MathWhiz:
         Returns:
             str: The selected proficiency level.
         """
-        print("What proficiency level would you like to learn today?")
+        print("What proficiency level would you like to begin with?")
         for i, level in enumerate(self.proficiency_levels, 1):
             print(f"{i}. {level}")
 
@@ -99,7 +99,7 @@ class MathWhiz:
     @staticmethod
     def generate_beginner_question():
         """
-        Generate a beginner-level math question.
+        Generate a beginner-level math questions.
 
         Returns:
             tuple: A tuple containing num1, operation, num2, correct_answer, and shuffled answers.
@@ -210,9 +210,9 @@ class MathWhiz:
 
         if user_answer.upper() == correct_option:
             self.questions_correct += 1
-            print(f"Correct answer, {self.name}. Keep it up!")
+            print(f"Correct answer, {self.name}. Keep going!")
         else:
-            print(f"Sorry, {self.name}. The correct answer was {correct_option}. Try again next time.")
+            print(f"Sorry, {self.name}. The correct answer was {correct_option}. Keep trying. You can do this!")
 
         self.questions_asked += 1
 
