@@ -204,13 +204,13 @@ class MathWhiz:
 
     def report(self):
         """
-        Provide a report on the user's performance.
+        Providing a report on the user's performance.
         """
         print(f"You answered {self.questions_correct} out of {self.questions_asked} questions correctly.")
 
     def run(self):
         """
-        Run the Math Whiz game.
+        Running the Math Whiz game.
         """
         self.display_intro()
         self.welcome_user()
