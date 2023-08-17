@@ -4,8 +4,29 @@ import time
 class MathWhiz:
     """
     A class to play the Math Whiz game at different proficiency levels.
-    ...
+
+    Attributes:
+        proficiency_levels (list): List of available proficiency levels.
+        questions_asked (int): Number of questions asked during the game.
+        questions_correct (int): Number of correct answers provided by the user.
+
+    Methods:
+        display_intro(): Display the title of the game.
+        welcome_user(): Welcome the user and provide game instructions.
+        get_user_proficiency_level(): Get the user's chosen proficiency level.
+        generate_question(level): Generate a question based on the user's proficiency level.
+        generate_beginner_question(): Generate a beginner-level math question.
+        generate_intermediate_question(): Generate an intermediate-level math question.
+        generate_advanced_question(): Generate an advanced-level math question.
+        ask_question(level): Ask a generated question to the user and validate the answer.
+        report(): Provide a report on the user's performance.
+        run(): Run the Math Whiz game.
+
+    Usage:
+        math_whiz = MathWhiz()
+        math_whiz.run()
     """
+
     proficiency_levels = ['Beginner', 'Intermediate', 'Advanced']
 
     def __init__(self):
@@ -29,10 +50,10 @@ class MathWhiz:
         """
         Welcome the user and provide game instructions.
         """
-        self.name = input("Please enter your name: ")
-        print(f"Hello {self.name}. Welcome to Math Whiz. Our goal is to help you become a Math Whiz")
+        self.name = input("Enter your name: ")
+        print(f"Hello {self.name}. Welcome to Math Whiz. Let's help you become a Math Whiz")
         print("Instructions: I will ask you a math question with four possible answers.")
-        print("Enter the letter of the correct answer. You can quit at any time by typing 'quit'.")
+        print("Enter the letter of your answer. You can quit at any time by typing 'quit'.")
         input("Press enter when you're ready to start.")
 
     def get_user_proficiency_level(self):
@@ -42,21 +63,20 @@ class MathWhiz:
         Returns:
             str: The selected proficiency level.
         """
-        print("What proficiency level would you like to begin with?")
+        print("What proficiency level would you like to learn today?")
         for i, level in enumerate(self.proficiency_levels, 1):
             print(f"{i}. {level}")
 
-        while True:
+        choice = input("Enter the number of your proficiency level choice: ")
+        while not choice.isdigit() or int(choice) not in range(1, len(self.proficiency_levels) + 1):
+            print("Invalid choice. Please enter a valid number.")
             choice = input("Enter the number of your proficiency level choice: ")
-            if choice.lower() == 'quit':
-                return 'quit'
-            if choice.isdigit() and int(choice) in range(1, len(self.proficiency_levels) + 1):
-                proficiency_choice = int(choice)
-                selected_level = self.proficiency_levels[proficiency_choice - 1]
-                print(f'You selected "{selected_level}" proficiency level. Here are the questions to get you started:')
-                return selected_level
-            else:
-                print("Invalid choice. Please enter a valid number.")
+
+        proficiency_choice = int(choice)
+        selected_level = self.proficiency_levels[proficiency_choice - 1]
+        print(f'You selected "{selected_level}" proficiency level. Here are the available questions:')
+
+        return selected_level
 
     @staticmethod
     def generate_question(level):
@@ -79,7 +99,7 @@ class MathWhiz:
     @staticmethod
     def generate_beginner_question():
         """
-        Generate a beginner-level math questions.
+        Generate a beginner-level math question.
 
         Returns:
             tuple: A tuple containing num1, operation, num2, correct_answer, and shuffled answers.
@@ -107,7 +127,7 @@ class MathWhiz:
     @staticmethod
     def generate_intermediate_question():
         """
-        Generate an intermediate-level math questions.
+        Generate an intermediate-level math question.
 
         Returns:
             tuple: A tuple containing num1, operation, num2, correct_answer, and shuffled answers.
@@ -135,7 +155,7 @@ class MathWhiz:
     @staticmethod
     def generate_advanced_question():
         """
-        Generate an advanced-level math questions.
+        Generate an advanced-level math question.
 
         Returns:
             tuple: A tuple containing num1, operation, num2, correct_answer, and shuffled answers.
@@ -190,9 +210,9 @@ class MathWhiz:
 
         if user_answer.upper() == correct_option:
             self.questions_correct += 1
-            print(f"Correct answer, {self.name}. Keep going!")
+            print(f"Correct answer, {self.name}. Keep it up!")
         else:
-            print(f"Sorry, {self.name}. The correct answer was {correct_option}. Keep trying. You can do this!")
+            print(f"Sorry, {self.name}. The correct answer was {correct_option}. Try again next time.")
 
         self.questions_asked += 1
 
@@ -215,20 +235,15 @@ class MathWhiz:
         self.display_intro()
         self.welcome_user()
         level = self.get_user_proficiency_level()
-        while level != 'quit':
-            print(f"Question count: 10\nTime limit: {15 if level == 'Intermediate' else 10} seconds per question")
-            for _ in range(10):
-                if self.ask_question(level) == 'quit':
-                    level = 'quit'
-                    break
-            if level != 'quit':
+        while True:
+            if self.ask_question(level) == 'quit':
+                break
+            if self.questions_asked % 10 == 0:
                 self.report()
-                print("Congratulations! You have completed all 10 questions.")
                 continue_game = input("Do you want to continue? (yes/no): ")
                 if continue_game.lower() != 'yes':
-                    print("Thank you for playing Math Whiz. See you around!")
+                    print("Thank you for playing Math Whiz. Goodbye!")
                     break
-                level = self.get_user_proficiency_level()
 
 
 if __name__ == "__main__":
